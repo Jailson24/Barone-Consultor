@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Consultoria executiva em finanças e estratégia empresarial. Ajudo empresas a crescerem com inteligência financeira e decisões baseadas em dados.">
+  <title>Consultoria Executiva | Finanças & Estratégia</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold: #D4AF37;
+      --blue: #00cfff;
+      --dark: #050505;
+      --white: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: #000;
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* IMAGEM DE FUNDO GLOBAL */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      filter: blur(3px) brightness(0.3);
+      z-index: -1;
+      transform: scale(1.1); /* Evita bordas brancas do desfoque */
+    }
+
+    /* HERO COM CAMADAS */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(0,207,255,0.1), transparent);
+      z-index: 2;
+    }
+
+    .glass {
+      position: relative;
+      z-index: 3;
+      padding: 40px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 40px rgba(0,0,0,0.6);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .glass h1 {
+      font-size: 3rem;
+      color: var(--blue);
+    }
+
+    .glass p {
+      margin-top: 20px;
+      color: #ccc;
+    }
+
+    .btn {
+      margin-top: 30px;
+      padding: 14px 30px;
+      background: linear-gradient(45deg, var(--blue), #0077ff);
+      border-radius: 40px;
+      color: white;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(0,207,255,0.6);
+    }
+
+    /* ELEMENTOS FLUTUANTES */
+    .floating {
+      position: absolute;
+      z-index: 2;
+      opacity: 0.2;
+      animation: floatSlow 10s infinite ease-in-out;
+    }
+
+    .chart1 { top: 20%; left: 10%; }
+    .chart2 { bottom: 20%; right: 10%; }
+
+    /* SEÇÕES */
+    section {
+      padding: 80px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--gold);
+      margin-bottom: 40px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.03);
+      padding: 25px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: 0.4s;
+      transform: translateY(50px);
+      opacity: 0;
+    }
+
+    .card.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: var(--blue);
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .about img {
+      width: 100%;
+      border-radius: 20px;
+      transform: scale(1.05);
+      transition: 0.5s;
+    }
+
+    .about img:hover {
+      transform: scale(1.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: #777;
+    }
+
+    /* ANIMAÇÕES */
+    @keyframes float {
+      0%,100% {transform: translateY(0);} 
+      50% {transform: translateY(-15px);} 
+    }
+
+    @keyframes floatSlow {
+      0%,100% {transform: translateY(0);} 
+      50% {transform: translateY(-30px);} 
+    }
+
+    @media(max-width:768px){
+      .about {grid-template-columns:1fr;}
+      .glass h1 {font-size:2rem;}
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- Cabeçalho Principal -->
+<header class="hero">
+  <!-- Camada de gradiente azul sutil -->
+  <div class="overlay"></div>
+
+  <!-- Ícones flutuantes decorativos -->
+  <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Ícone de gráfico financeiro" class="floating chart1" width="80">
+  <img src="https://cdn-icons-png.flaticon.com/512/1828/1828919.png" alt="Ícone de crescimento de mercado" class="floating chart2" width="80">
+
+  <!-- Card de Vidro Principal -->
+  <div class="glass">
+    <h1>Impulsione o crescimento do seu negócio</h1>
+    <p>Inteligência Financeira e Estratégia de Negócios</p>
+    <!-- Botão com rolagem suave para contato -->
+    <a href="#contato" class="btn">Falar no WhatsApp</a>
+  </div>
+</header>
+
+<section>
+  <h2>Serviços</h2>
+  <div class="grid">
+    <div class="card">✔ Organização financeira</div>
+    <div class="card">✔ Fluxo de caixa</div>
+    <div class="card">✔ Redução de custos</div>
+    <div class="card">✔ Planejamento estratégico</div>
+    <div class="card">✔ Crescimento empresarial</div>
+    <div class="card">✔ Indicadores financeiros</div>
+  </div>
+</section>
+
+<section>
+  <h2>Sobre mim</h2>
+  <div class="about">
+    <!-- Imagem de perfil com ALT tag -->
+    <img src="./image/1000063450.png" >
+    <div>
+      <p>Jailson Barone</p>
+      <p>Consultor Executivo em Finanças e Estratégia Empresarial</p>
+      <br>
+      <p>Especialista em finanças e estratégia, com formação em empreendedorismo, MBA e forte atuação em dados e tecnologia.</p>
+      <p>Ajudo empresas a crescerem com inteligência financeira e decisões baseadas em dados.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <h2>Contato</h2>
+  <p style="text-align:center;">Vamos transformar sua empresa</p>
+  <div style="text-align:center;">
+    <!-- Link do WhatsApp (Exemplo com DDD 21) -->
+    <a href="https://wa.me/5521988801674?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20consultoria" target="_blank" rel="noopener noreferrer" class="btn">Falar no WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Consultoria Executiva</p>
+</footer>
+
+<script>
+  // Script de revelação dos cards ao rolar a página
+  const cards = document.querySelectorAll('.card');
+  window.addEventListener('scroll', () => {
+    cards.forEach(card => {
+      if(card.getBoundingClientRect().top < window.innerHeight - 50){
+        card.classList.add('show');
+      }
+    });
+  });
+
+  // Script para rolagem suave nos links internos
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
