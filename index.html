@@ -70,6 +70,7 @@
       background: rgba(255,255,255,0.05);
       backdrop-filter: blur(20px);
       box-shadow: 0 0 40px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.1);
       animation: float 6s ease-in-out infinite;
     }
 
@@ -92,6 +93,7 @@
       text-decoration: none;
       display: inline-block;
       transition: 0.3s;
+      cursor: pointer;
     }
 
     .btn:hover {
@@ -129,6 +131,7 @@
       gap: 25px;
     }
 
+    /* CARDS DE SERVIÇOS */
     .card {
       background: rgba(255,255,255,0.03);
       padding: 25px;
@@ -138,6 +141,7 @@
       transition: 0.4s;
       transform: translateY(50px);
       opacity: 0;
+      cursor: pointer;
     }
 
     .card.show {
@@ -146,10 +150,72 @@
     }
 
     .card:hover {
-      transform: translateY(-10px);
+      transform: translateY(-5px);
       border-color: var(--blue);
+      box-shadow: 0 5px 15px rgba(0, 207, 255, 0.1);
     }
 
+    /* ESTILOS DO MODAL (JANELA DE RESUMO) */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      max-width: 500px;
+      width: 90%;
+      text-align: left;
+      transform: translateY(-20px);
+      transition: 0.3s ease;
+      position: relative;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-content h3 {
+      color: var(--gold);
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+      padding-right: 30px;
+    }
+
+    .modal-content p {
+      color: #ddd;
+      line-height: 1.6;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.8rem;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+      line-height: 1;
+    }
+
+    .close-btn:hover {
+      color: var(--blue);
+    }
+
+    /* SOBRE MIM */
     .about {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -215,12 +281,12 @@
 <section>
   <h2>Serviços</h2>
   <div class="grid">
-    <div class="card">✔ Organização financeira</div>
-    <div class="card">✔ Fluxo de caixa</div>
-    <div class="card">✔ Redução de custos</div>
-    <div class="card">✔ Planejamento estratégico</div>
-    <div class="card">✔ Crescimento empresarial</div>
-    <div class="card">✔ Indicadores financeiros</div>
+    <div class="card" data-title="Organização financeira" data-desc="Estruturação completa das rotinas financeiras, separação do dinheiro da pessoa física e jurídica e categorização eficiente de despesas e receitas.">✔ Organização financeira</div>
+    <div class="card" data-title="Fluxo de caixa" data-desc="Mapeamento e controle diário de entradas e saídas, gerando previsibilidade financeira para evitar surpresas no fim do mês.">✔ Fluxo de caixa</div>
+    <div class="card" data-title="Redução de custos" data-desc="Análise detalhada das despesas operacionais para identificar desperdícios e gargalos, visando aumentar a sua margem de lucro de forma inteligente.">✔ Redução de custos</div>
+    <div class="card" data-title="Planejamento estratégico" data-desc="Definição de metas claras, estruturação de planos de ação e acompanhamento rigoroso de resultados a curto, médio e longo prazo.">✔ Planejamento estratégico</div>
+    <div class="card" data-title="Crescimento empresarial" data-desc="Modelagem de estratégias de escalabilidade, análise de viabilidade para novos investimentos e expansão segura de mercado.">✔ Crescimento empresarial</div>
+    <div class="card" data-title="Indicadores financeiros" data-desc="Criação de dashboards gerenciais, análise de DRE, ROI e indicadores essenciais para tomadas de decisão baseadas em dados reais.">✔ Indicadores financeiros</div>
   </div>
 </section>
 
@@ -228,7 +294,7 @@
   <h2>Sobre mim</h2>
   <div class="about">
     <!-- Imagem de perfil com ALT tag -->
-    <img src="./image/1000063450.png" >
+    <img src="./image/1000063450.png" alt="Foto de Jailson Barone, Consultor Executivo">
     <div>
       <p>Jailson Barone</p>
       <p>Consultor Executivo em Finanças e Estratégia Empresarial</p>
@@ -252,6 +318,15 @@
   <p>© 2026 Consultoria Executiva</p>
 </footer>
 
+<!-- MODAL ESTRUTURA HTML -->
+<div id="serviceModal" class="modal-overlay">
+  <div class="modal-content glass">
+    <span class="close-btn">&times;</span>
+    <h3 id="modalTitle">Título do Serviço</h3>
+    <p id="modalDesc">Descrição detalhada do serviço vai aparecer aqui.</p>
+  </div>
+</div>
+
 <script>
   // Script de revelação dos cards ao rolar a página
   const cards = document.querySelectorAll('.card');
@@ -271,6 +346,36 @@
         behavior: 'smooth'
       });
     });
+  });
+
+  // LÓGICA DO MODAL DE SERVIÇOS
+  const modal = document.getElementById('serviceModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const closeBtn = document.querySelector('.close-btn');
+
+  // Ao clicar em um card, abre o modal com as informações correspondentes
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const title = card.getAttribute('data-title');
+      const desc = card.getAttribute('data-desc');
+      
+      modalTitle.textContent = title;
+      modalDesc.textContent = desc;
+      modal.classList.add('active');
+    });
+  });
+
+  // Fechar no "X"
+  closeBtn.addEventListener('click', () => {
+    modal.classList.remove('active');
+  });
+
+  // Fechar ao clicar fora da janela (no fundo escuro)
+  modal.addEventListener('click', (e) => {
+    if(e.target === modal) {
+      modal.classList.remove('active');
+    }
   });
 </script>
 
