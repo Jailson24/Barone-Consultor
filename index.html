@@ -70,7 +70,6 @@
       background: rgba(255,255,255,0.05);
       backdrop-filter: blur(20px);
       box-shadow: 0 0 40px rgba(0,0,0,0.6);
-      border: 1px solid rgba(255,255,255,0.1);
       animation: float 6s ease-in-out infinite;
     }
 
@@ -131,7 +130,7 @@
       gap: 25px;
     }
 
-    /* CARDS DE SERVIÇOS */
+    /* CARDS GENÉRICOS */
     .card {
       background: rgba(255,255,255,0.03);
       padding: 25px;
@@ -141,7 +140,6 @@
       transition: 0.4s;
       transform: translateY(50px);
       opacity: 0;
-      cursor: pointer;
     }
 
     .card.show {
@@ -149,10 +147,68 @@
       opacity: 1;
     }
 
-    .card:hover {
+    /* CARDS DE SERVIÇOS (CLICÁVEIS) */
+    .service-card {
+      cursor: pointer;
+    }
+
+    .service-card:hover {
       transform: translateY(-5px);
       border-color: var(--blue);
       box-shadow: 0 5px 15px rgba(0, 207, 255, 0.1);
+    }
+
+    /* TABELA DE PREÇOS */
+    .pricing-table-wrapper {
+      overflow-x: auto;
+      margin-top: 20px;
+      padding-bottom: 10px;
+    }
+
+    .pricing-table {
+      width: 100%;
+      min-width: 600px;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .pricing-table th, .pricing-table td {
+      padding: 18px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .pricing-table th {
+      color: var(--gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+    }
+
+    .pricing-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .pricing-table tr:hover {
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+    }
+
+    .pricing-table td:nth-child(1) {
+      font-weight: 600;
+      color: var(--white);
+      font-size: 1.05rem;
+    }
+
+    .pricing-table td:nth-child(2) {
+      color: #bbb;
+      font-size: 0.95rem;
+    }
+
+    .pricing-table td:nth-child(3) {
+      font-weight: 700;
+      color: var(--gold);
+      white-space: nowrap;
     }
 
     /* ESTILOS DO MODAL (JANELA DE RESUMO) */
@@ -198,6 +254,24 @@
     .modal-content p {
       color: #ddd;
       line-height: 1.6;
+    }
+
+    .modal-content strong {
+      color: var(--gold);
+      display: block;
+      margin-top: 15px;
+      font-size: 1.05rem;
+    }
+
+    .modal-content ul {
+      margin-top: 10px;
+      padding-left: 20px;
+      color: #ddd;
+    }
+
+    .modal-content li {
+      margin-bottom: 8px;
+      line-height: 1.4;
     }
 
     .close-btn {
@@ -254,6 +328,10 @@
     @media(max-width:768px){
       .about {grid-template-columns:1fr;}
       .glass h1 {font-size:2rem;}
+      
+      .pricing-table th, .pricing-table td {
+        padding: 12px 15px;
+      }
     }
 
   </style>
@@ -262,44 +340,92 @@
 
 <!-- Cabeçalho Principal -->
 <header class="hero">
-  <!-- Camada de gradiente azul sutil -->
   <div class="overlay"></div>
 
-  <!-- Ícones flutuantes decorativos -->
   <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Ícone de gráfico financeiro" class="floating chart1" width="80">
   <img src="https://cdn-icons-png.flaticon.com/512/1828/1828919.png" alt="Ícone de crescimento de mercado" class="floating chart2" width="80">
 
-  <!-- Card de Vidro Principal -->
   <div class="glass">
     <h1>Impulsione o crescimento do seu negócio</h1>
     <p>Inteligência Financeira e Estratégia de Negócios</p>
-    <!-- Botão com rolagem suave para contato -->
     <a href="#contato" class="btn">Falar no WhatsApp</a>
   </div>
 </header>
 
 <section>
-  <h2>Serviços</h2>
+  <h2>Serviços e Especialidades</h2>
   <div class="grid">
-    <div class="card" data-title="Organização financeira" data-desc="Estruturação completa das rotinas financeiras, separação do dinheiro da pessoa física e jurídica e categorização eficiente de despesas e receitas.">✔ Organização financeira</div>
-    <div class="card" data-title="Fluxo de caixa" data-desc="Mapeamento e controle diário de entradas e saídas, gerando previsibilidade financeira para evitar surpresas no fim do mês.">✔ Fluxo de caixa</div>
-    <div class="card" data-title="Redução de custos" data-desc="Análise detalhada das despesas operacionais para identificar desperdícios e gargalos, visando aumentar a sua margem de lucro de forma inteligente.">✔ Redução de custos</div>
-    <div class="card" data-title="Planejamento estratégico" data-desc="Definição de metas claras, estruturação de planos de ação e acompanhamento rigoroso de resultados a curto, médio e longo prazo.">✔ Planejamento estratégico</div>
-    <div class="card" data-title="Crescimento empresarial" data-desc="Modelagem de estratégias de escalabilidade, análise de viabilidade para novos investimentos e expansão segura de mercado.">✔ Crescimento empresarial</div>
-    <div class="card" data-title="Indicadores financeiros" data-desc="Criação de dashboards gerenciais, análise de DRE, ROI e indicadores essenciais para tomadas de decisão baseadas em dados reais.">✔ Indicadores financeiros</div>
+    <div class="card service-card" data-title="💰 Gestão Financeira" data-desc="<p>Organizo e estruturo a saúde financeira da sua empresa, garantindo controle total sobre entradas, saídas, lucros e custos.</p><strong>Inclui:</strong><ul><li>Controle de fluxo de caixa</li><li>Análise de lucros e prejuízos</li><li>Redução de custos</li><li>Planejamento financeiro</li></ul>">💰 Gestão Financeira</div>
+    
+    <div class="card service-card" data-title="📈 Estratégia Empresarial" data-desc="<p>Desenvolvo estratégias inteligentes para crescimento, posicionamento e tomada de decisão baseada em resultados.</p><strong>Inclui:</strong><ul><li>Planejamento estratégico</li><li>Definição de metas</li><li>Estruturação de crescimento</li><li>Modelagem de negócios</li></ul>">📈 Estratégia Empresarial</div>
+    
+    <div class="card service-card" data-title="📊 Análise de Dados" data-desc="<p>Transformo dados em decisões estratégicas através de dashboards e indicadores de desempenho.</p><strong>Inclui:</strong><ul><li>Dashboards (Power BI / Excel)</li><li>KPIs e indicadores</li><li>Relatórios gerenciais</li><li>Análise de desempenho</li></ul>">📊 Análise de Dados</div>
+    
+    <div class="card service-card" data-title="💻 Tecnologia e Sistemas" data-desc="<p>Crio soluções tecnológicas personalizadas para automatizar e melhorar a gestão do seu negócio.</p><strong>Inclui:</strong><ul><li>Sistemas personalizados</li><li>Automação de processos</li><li>Integração de ferramentas</li><li>Aplicativos empresariais</li></ul>">💻 Tecnologia e Sistemas</div>
+    
+    <div class="card service-card" data-title="🧠 Consultoria Estratégica" data-desc="<p>Analiso sua empresa de forma completa e entrego um plano prático para resolver problemas e crescer.</p><strong>Inclui:</strong><ul><li>Diagnóstico empresarial</li><li>Identificação de falhas</li><li>Plano de ação</li><li>Acompanhamento estratégico</li></ul>">🧠 Consultoria Estratégica</div>
+    
+    <div class="card service-card" data-title="🚀 Crescimento e Escala" data-desc="<p>Estruturo sua empresa para crescer de forma organizada, aumentando faturamento e eficiência.</p><strong>Inclui:</strong><ul><li>Estratégias de crescimento</li><li>Aumento de faturamento</li><li>Otimização de processos</li><li>Escala do negócio</li></ul>">🚀 Crescimento e Escala</div>
+  </div>
+</section>
+
+<!-- TABELA DE INVESTIMENTOS -->
+<section id="investimentos">
+  <h2>Tabela de Serviços & Investimentos</h2>
+  <div class="card show pricing-table-wrapper">
+    <table class="pricing-table">
+      <thead>
+        <tr>
+          <th>Plano</th>
+          <th>O Que Está Incluso</th>
+          <th>Investimento</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Consultoria por Hora</td>
+          <td>Diagnóstico rápido + orientação estratégica</td>
+          <td>R$ 150 – R$ 400/h</td>
+        </tr>
+        <tr>
+          <td>Diagnóstico Completo</td>
+          <td>Análise financeira + plano de ação</td>
+          <td>R$ 700 – R$ 1.500</td>
+        </tr>
+        <tr>
+          <td>Plano PRO</td>
+          <td>Organização financeira + estratégia de crescimento</td>
+          <td>R$ 1.200 – R$ 2.500</td>
+        </tr>
+        <tr>
+          <td>Consultoria + Implementação</td>
+          <td>Dashboards, automações e estruturação</td>
+          <td>R$ 2.000 – R$ 5.000</td>
+        </tr>
+        <tr>
+          <td>Premium <span style="font-weight:300; font-size:0.85rem; display:block;">(Sistema Personalizado)</span></td>
+          <td>Sistema + estratégia + automação completa</td>
+          <td>R$ 5.000 – R$ 20.000+</td>
+        </tr>
+        <tr>
+          <td>Plano Mensal</td>
+          <td>-</td>
+          <td>R$ 1.000 – R$ 3.000/mês</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
 <section>
   <h2>Sobre mim</h2>
   <div class="about">
-    <!-- Imagem de perfil com ALT tag -->
-    <img src="./image/1000063450.png" alt="Foto de Jailson Barone, Consultor Executivo">
+    <img src="./image/1000063450.png" alt="Jailson Barone">
     <div>
-      <p>Jailson Barone</p>
-      <p>Consultor Executivo em Finanças, Estratégia & Tecnologia</p>
-      <br>
+      <p style="font-size: 1.5rem; color: var(--gold); font-weight: bold; margin-bottom: 5px;">Jailson Barone</p>
+      <p style="color: var(--blue); font-weight: 600; margin-bottom: 15px;">Consultor Executivo em Finanças, Estratégia & Tecnologia</p>
       <p>Especialista em finanças e estratégia, com formação em empreendedorismo, MBA e forte atuação em dados e tecnologia.</p>
+      <br>
       <p>Ajudo empresas a crescerem com inteligência financeira e decisões baseadas em dados.</p>
     </div>
   </div>
@@ -309,7 +435,6 @@
   <h2>Contato</h2>
   <p style="text-align:center;">Vamos transformar sua empresa</p>
   <div style="text-align:center;">
-    <!-- Link do WhatsApp (Exemplo com DDD 21) -->
     <a href="https://wa.me/5521988801674?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20consultoria" target="_blank" rel="noopener noreferrer" class="btn">Falar no WhatsApp</a>
   </div>
 </section>
@@ -342,26 +467,30 @@
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
-      document.querySelector(this.getAttribute('href')).scrollIntoView({
-        behavior: 'smooth'
-      });
+      const targetElement = document.querySelector(this.getAttribute('href'));
+      if(targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
     });
   });
 
   // LÓGICA DO MODAL DE SERVIÇOS
+  const serviceCards = document.querySelectorAll('.service-card'); // Agora mira apenas nos botões de serviço
   const modal = document.getElementById('serviceModal');
   const modalTitle = document.getElementById('modalTitle');
   const modalDesc = document.getElementById('modalDesc');
   const closeBtn = document.querySelector('.close-btn');
 
-  // Ao clicar em um card, abre o modal com as informações correspondentes
-  cards.forEach(card => {
+  // Ao clicar em um card de serviço, abre o modal
+  serviceCards.forEach(card => {
     card.addEventListener('click', () => {
       const title = card.getAttribute('data-title');
       const desc = card.getAttribute('data-desc');
       
       modalTitle.textContent = title;
-      modalDesc.textContent = desc;
+      modalDesc.innerHTML = desc; // Usando innerHTML para renderizar as listas
       modal.classList.add('active');
     });
   });
